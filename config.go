@@ -59,7 +59,7 @@ func (c *ConfigJobInterval) UnmarshalJSON(vByte []byte) error {
 	if err != nil {
 		return fmt.Errorf("can't parse number")
 	}
-	if n < 0 {
+	if n <= 0 {
 		return fmt.Errorf("number must be positive")
 	}
 	modifier := vals[1]
