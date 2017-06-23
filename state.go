@@ -32,22 +32,17 @@ func (s *State) Run(ctx context.Context) {
 }
 
 func (s *State) startJob(job ConfigJob) {
+	// TODO: Run CMD and output the response in case of a non-zero exit code.
+	// TODO: Logger dependency.
+	log.Println(job.Cmd)
 	for {
 		select {
 		case <-s.ctx.Done():
 			return
-		default:
+		case <-time.Tick(time.Duration(job.Interval)):
+			// TODO: Run CMD and output the response in case of a non-zero exit code.
+			// TODO: Logger dependency.
+			log.Println(job.Cmd)
 		}
-		// TODO: Run CMD and output the response in case of a non-zero exit code.
-		// TODO: Logger dependency.
-		log.Println(job.Cmd)
-		select {
-		case <-s.ctx.Done():
-			return
-		default:
-		}
-		// TODO: Replace sleep with some tick? Otherwise, one will have to wait till the end
-		// of this long interval before the runner finishes.
-		time.Sleep(time.Duration(job.Interval))
 	}
 }
