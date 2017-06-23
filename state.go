@@ -39,6 +39,7 @@ func (s *State) startJob(job ConfigJob) {
 		default:
 		}
 		// TODO: Run CMD and output the response in case of a non-zero exit code.
+		// TODO: Logger dependency.
 		log.Println(job.Cmd)
 		select {
 		case <-s.ctx.Done():
