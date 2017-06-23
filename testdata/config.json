@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "jobs": [
+    {
+      "cmd": "yourapp check-statuses",
+      "interval": "5 seconds"
+    }
+  ]
+}

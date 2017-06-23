@@ -113,3 +113,23 @@ func TestConfigJobInterval_UnmarshalJSON_BadModifier(t *testing.T) {
 	// Assert.
 	require.NotNil(t, err)
 }
+
+func TestNewConfigFromFile(t *testing.T) {
+	// Arrange.
+	_, err := NewConfigFromFile("absolutely-absent-file.json")
+
+	// Assert.
+	require.NotNil(t, err)
+}
+
+func TestNewConfigFromFile_(t *testing.T) {
+	// Arrange.
+	c, err := NewConfigFromFile("testdata/config.json")
+
+	// Assert.
+	require.Nil(t, err)
+	require.EqualValues(t, 1, c.Version)
+	require.Len(t, c.Jobs, 1)
+	require.EqualValues(t, "yourapp check-statuses", c.Jobs[0].Cmd)
+	require.EqualValues(t, 5*time.Second, c.Jobs[0].Interval)
+}
