@@ -39,6 +39,34 @@ Currently, `version` must be `1` and the list of jobs consists of two fields:
 not supported as the current version does not store information about jobs schedule anywhere
 and triggers their execution on restart. 
 
+## Using as a library
+
+Jobrunner can also be used as a library, for example:
+
+```go
+package main
+
+import (
+	"context"
+	"log"
+
+	"github.com/tiabc/jobrunner"
+)
+
+func main() {
+	r, err := jobrunner.NewFromFile("your-config.json")
+	if err != nil {
+		log.Fatal(err)
+	}
+	
+	// The second variable is the cancel function which can finish jobrunner.
+	ctx, _ := context.WithCancel(context.Background())
+	
+	// Note that this call blocks the execution.
+	r.Run(ctx)
+}
+```
+
 ## License
 
 MIT

@@ -2,6 +2,7 @@ package jobrunner
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"sync"
 	"time"
@@ -13,6 +14,17 @@ type State struct {
 	//Logger log.Logger
 
 	ctx context.Context
+}
+
+// NewFromFile creates State with Config parsed from the specified file.
+func NewFromFile(filename string) (State, error) {
+	conf, err := NewConfigFromFile(filename)
+	if err != nil {
+		return State{}, fmt.Errorf("can't create config: %s", err)
+	}
+	return State{
+		Conf: conf,
+	}, nil
 }
 
 // Run the configured jobs.

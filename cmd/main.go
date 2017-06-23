@@ -13,12 +13,11 @@ func main() {
 		fmt.Println("Usage:\n    jobrunner <config-file>")
 		return
 	}
-	conf, err := jobrunner.NewConfigFromFile(os.Args[1])
+	r, err := jobrunner.NewFromFile(os.Args[1])
 	if err != nil {
 		fmt.Printf("Failed to parse config %s: %s\n", os.Args[1], err)
 		os.Exit(1)
 	}
-	r := jobrunner.State{Conf: conf}
 	ctx, _ := context.WithCancel(context.Background())
 	r.Run(ctx)
 	// TODO: Graceful shutdown.
