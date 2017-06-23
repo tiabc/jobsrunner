@@ -18,10 +18,8 @@ func main() {
 		fmt.Printf("Failed to parse config %s: %s\n", os.Args[1], err)
 		os.Exit(1)
 	}
-	r := jobrunner.State{
-		Conf: conf,
-	}
+	r := jobrunner.State{Conf: conf}
 	ctx, _ := context.WithCancel(context.Background())
 	r.Run(ctx)
-	// TODO: Graceful shutsown.
+	// TODO: Graceful shutdown.
 }
