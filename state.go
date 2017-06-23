@@ -12,32 +12,23 @@ type State struct {
 	Conf Config
 	//Logger log.Logger
 
-	ctx    context.Context
-	cancel context.CancelFunc
-	wg     sync.WaitGroup
+	ctx context.Context
 }
 
 // Run the configured jobs.
-func (s *State) Run() {
-	s.wg = sync.WaitGroup{}
-	s.ctx, s.cancel = context.WithCancel(context.Background())
+func (s *State) Run(ctx context.Context) {
+	var wg sync.WaitGroup
+	s.ctx = ctx
 	for i, job := range s.Conf.Jobs {
-		s.wg.Add(1)
+		wg.Add(1)
 		go func() {
 			s.startJob(job)
 			// TODO: Logger dependency.
 			log.Printf("Job #%d finished", i)
-			s.wg.Done()
+			wg.Done()
 		}()
 	}
-}
-
-// Stop gracefully terminates the execution and waits until all jobs finished.
-func (s *State) Stop() {
-	// TODO: Stop gracefully.
-	log.Printf("Finishing %d jobs...\n", len(s.Conf.Jobs))
-	s.cancel()
-	s.wg.Wait()
+	wg.Wait()
 }
 
 func (s *State) startJob(job ConfigJob) {

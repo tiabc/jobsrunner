@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"os"
 
@@ -20,6 +21,7 @@ func main() {
 	r := jobrunner.State{
 		Conf: conf,
 	}
-	r.Run()
+	ctx, _ := context.WithCancel(context.Background())
+	r.Run(ctx)
 	// TODO: Graceful shutsown.
 }
