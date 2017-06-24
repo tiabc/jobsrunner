@@ -3,6 +3,10 @@
 Sometimes, there is a need for a cron-like jobs runner which run jobs (commands) and waits until
 the job finishes before starting it again in some pre-specified interval.
 
+## Project status
+
+The project is ready for use in production.
+
 ## Running
 
 Installation is performed via a simple command:
@@ -66,6 +70,10 @@ func main() {
 	r.Run(ctx)
 }
 ```
+
+## Contributing
+
+Contributions are welcome. Feel free to propose changes, create pull requests or request new functionality.
 
 ## License
 
