@@ -11,11 +11,11 @@ The project is ready for use in production.
 
 Installation is performed via a simple command:
 
-    go install github.com/tiabc/jobrunner/cmd
+    go install github.com/tiabc/jobrunner
     
-Now, specify jobs in the config file, save it somewhere (say, `/etc/jobrunner/config.json`) and run the application:
+Now, specify jobs in the config file (see below) and run the application:
 
-    jobrunner /etc/jobrunner/config.json 
+    $GOPATH/bin/jobrunner config.json 
     
 After launch, jobrunner immediately starts all the specified jobs. Information about jobs schedule
 is not stored anywhere and execution of every job will be triggered upon restart.
@@ -54,11 +54,11 @@ import (
 	"context"
 	"log"
 
-	"github.com/tiabc/jobrunner"
+	"github.com/tiabc/jobsrunner/state"
 )
 
 func main() {
-	r, err := jobrunner.NewFromFile("your-config.json")
+	r, err := state.NewFromFile("your-config.json")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -66,7 +66,7 @@ func main() {
 	// The second variable is the cancel function which can finish jobrunner.
 	ctx, _ := context.WithCancel(context.Background())
 	
-	// Note that this call blocks the execution.
+	// This call blocks the execution until the context is cancelled.
 	r.Run(ctx)
 }
 ```
