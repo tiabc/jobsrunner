@@ -5,7 +5,8 @@ the job finishes before starting it again in some pre-specified interval.
 
 ## Project status
 
-The project is ready for use in production.
+The tool is under active development, don't use it in production now. The library will be ready
+for production in the following few days.
 
 ## Running
 
