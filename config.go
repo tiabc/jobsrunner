@@ -1,5 +1,7 @@
 package jobrunner
 
+// TODO: Hot config reload.
+
 import (
 	"encoding/json"
 	"fmt"
