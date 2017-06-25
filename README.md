@@ -1,4 +1,4 @@
-# jobrunner
+# jobsrunner
 
 Sometimes, there is a need for a cron-like jobs runner which run jobs (commands) and waits until
 the job finishes before starting it again in some pre-specified interval.
@@ -12,13 +12,13 @@ for production in the following few days.
 
 Installation is performed via a simple command:
 
-    go install github.com/tiabc/jobrunner
+    go get github.com/tiabc/jobsrunner/jobsrunner
     
 Now, specify jobs in the config file (see below) and run the application:
 
-    $GOPATH/bin/jobrunner config.json 
+    $GOPATH/bin/jobsrunner config.json 
     
-After launch, jobrunner immediately starts all the specified jobs. Information about jobs schedule
+After launch, jobsrunner immediately starts all the specified jobs. Information about jobs schedule
 is not stored anywhere and execution of every job will be triggered upon restart.
 
 ### Configuration file
@@ -46,7 +46,7 @@ and triggers their execution on restart.
 
 ## Using as a library
 
-Jobrunner can also be used as a library, for example:
+jobsrunner can also be used as a library, for example:
 
 ```go
 package main
@@ -55,16 +55,16 @@ import (
 	"context"
 	"log"
 
-	"github.com/tiabc/jobsrunner/state"
+	"github.com/tiabc/jobsrunner"
 )
 
 func main() {
-	r, err := state.NewFromFile("your-config.json")
+	r, err := jobsrunner.NewFromFile("your-config.json")
 	if err != nil {
 		log.Fatal(err)
 	}
 	
-	// The second variable is the cancel function which can finish jobrunner.
+	// The second variable is the cancel function which can finish jobsrunner.
 	ctx, _ := context.WithCancel(context.Background())
 	
 	// This call blocks the execution until the context is cancelled.

@@ -1,4 +1,4 @@
-package state
+package jobsrunner
 
 import (
 	"github.com/stretchr/testify/require"

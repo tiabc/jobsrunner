@@ -1,4 +1,4 @@
-package state
+package jobsrunner
 
 // TODO: Hot config reload.
 
