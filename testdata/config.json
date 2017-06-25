@@ -2,7 +2,7 @@
   "version": 1,
   "jobs": [
     {
-      "cmd": "yourapp check-statuses",
+      "cmd": "echo 1337",
       "interval": "5 seconds"
     }
   ]

@@ -130,6 +130,6 @@ func TestNewConfigFromFile_(t *testing.T) {
 	require.Nil(t, err)
 	require.EqualValues(t, 1, c.Version)
 	require.Len(t, c.Jobs, 1)
-	require.EqualValues(t, "yourapp check-statuses", c.Jobs[0].Cmd)
+	require.EqualValues(t, "echo 1337", c.Jobs[0].Cmd)
 	require.EqualValues(t, 5*time.Second, c.Jobs[0].Interval)
 }
