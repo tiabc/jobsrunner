@@ -1,4 +1,4 @@
-package jobsrunner
+package main
 
 import (
 	"context"
