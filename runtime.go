@@ -36,16 +36,17 @@ func (r *Runtime) Run(ctx context.Context) {
 	r.ctx = ctx
 	for i, job := range r.Conf.Jobs {
 		wg.Add(1)
-		go func() {
-			r.startJob(job)
+		// TODO: Write a test that all jobs are started.
+		go func(job ConfigJob) {
+			r.runWithInterval(job)
 			log.Printf("Job #%d finished", i)
 			wg.Done()
-		}()
+		}(job)
 	}
 	wg.Wait()
 }
 
-func (r *Runtime) startJob(job ConfigJob) {
+func (r *Runtime) runWithInterval(job ConfigJob) {
 	r.runCmd(job.Cmd)
 	for {
 		select {
