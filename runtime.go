@@ -82,19 +82,15 @@ func (r *Runtime) runCmd(cmd string) {
 		slurp, _  = ioutil.ReadAll(stderr)
 		output, _ = ioutil.ReadAll(stdout)
 	)
-	if err := c.Wait(); err != nil {
-		if errExit, ok := err.(*exec.ExitError); ok {
-			o := fmt.Sprintf(`"%v" finished with %s`, cmd, errExit)
-			if len(slurp) != 0 {
-				o = fmt.Sprintf("%s, stderr: %s", o, slurp)
-			}
-			if len(output) != 0 {
-				o = fmt.Sprintf("%s, stdout: %s", o, output)
-			}
-			log.Println(o)
-		} else {
-			log.Printf(`"%v" finished with error %s`, cmd, err)
-		}
-	}
+	err = c.Wait()
 	log.Printf(`"%v" took %s`, cmd, time.Now().Sub(b))
+	if err != nil {
+		log.Printf(`finished with %s`, err)
+	}
+	if len(slurp) != 0 {
+		log.Printf("STDERR: \n%s", slurp)
+	}
+	if len(output) != 0 {
+		log.Printf("STDOUT: \n%s", output)
+	}
 }
